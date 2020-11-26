@@ -36,6 +36,19 @@
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            @if (ViewData["feedback"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    @ViewData["feedback"]
+                </div>
+            }
+            else if (ViewData["warning"] != null)
+            {
+                <div class="alert alert-warning" role="alert">
+                    @ViewData["warning"]
+                </div>
+
+            }
         </main>
     </div>
 
