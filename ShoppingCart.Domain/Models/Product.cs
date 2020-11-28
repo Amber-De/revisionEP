@@ -20,8 +20,6 @@ namespace ShoppingCart.Domain.Models
         [Required]
         public Category Category { get; set; }
 
-        [ForeignKey("CateogryFK")]
-        public int CategoryId { get; set; }
 
     }
 }
