@@ -24,12 +24,12 @@ namespace Presentation.Controllers
         {
             if(string.IsNullOrEmpty(query) || string.IsNullOrEmpty(email))
             {
-                ViewData["warning"] = "Please fill both boxes for the message to be sent!";
+                TempData["warning"] = "Please fill both boxes for the message to be sent!";
                 
             }
             else
             {
-                ViewData["feedback"] = "Thankyou for your query we will get back to you asap !";
+                TempData["feedback"] = "Thankyou for your query we will get back to you asap !";
             }
             return View(); 
         }
