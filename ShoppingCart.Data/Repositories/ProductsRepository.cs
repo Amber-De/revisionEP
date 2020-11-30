@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoppingCart.Data.Repositories
 {
@@ -45,8 +46,9 @@ namespace ShoppingCart.Data.Repositories
             //single or default will be used whenever you are going to return just one record. Go through all the products(x)
             //evaluate this condition..and when you find a product which satisfies this condition(the product id matches the 
             //product)I'm passing, return it. If it doesnt find a product, it will return null.
-
-            return _context.Products.SingleOrDefault(x => x.Id == id);
+            
+            //lazyloading - it is only loaded if it is asked to.
+            return _context.Products.Include(x => x.Category).SingleOrDefault(x => x.Id == id);
         }
     }
 }
