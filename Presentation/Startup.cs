@@ -34,17 +34,12 @@ namespace Presentation
                     Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddDbContext<ShoppingCartDbContext>(options =>
-                 options.UseSqlServer(
-            Configuration.GetConnectionString("DefaultConnection")));
-
-
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            DependencyContainer.RegisterService(services);
+            DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
