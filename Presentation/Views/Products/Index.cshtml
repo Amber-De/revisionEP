@@ -36,6 +36,7 @@
                             <p class="card-text">€@product.Price</p>
                             <!--The link that will connect us to details.html-->
                             <a href="Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
+                            <a href="Delete?id=@product.Id" onclick="return window.confirm('Are you sure you want to delete this product?')"class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>

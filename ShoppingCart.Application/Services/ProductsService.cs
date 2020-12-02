@@ -66,7 +66,11 @@ namespace ShoppingCart.Application.Services
 
         public void DeleteProduct(Guid id)
         {
-            throw new NotImplementedException();
+            if(_productRepo.GetProduct(id) != null)
+            {
+                _productRepo.DeleteProduct(id);
+            }
+
         }
     }
 }
