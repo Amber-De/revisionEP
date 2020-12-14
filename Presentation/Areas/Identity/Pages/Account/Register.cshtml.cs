@@ -92,6 +92,7 @@ namespace Presentation.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password); //this adds a new entry in AspNetUsers
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "User");
                     _membersService.AddMember(
 
                         new ShoppingCart.Application.ViewModels.MemberViewModel()

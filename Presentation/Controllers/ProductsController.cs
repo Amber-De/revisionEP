@@ -8,6 +8,7 @@ using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers
 {
@@ -29,6 +30,9 @@ namespace Presentation.Controllers
         /// Products Catalogue
         /// </summary>
         /// <returns></returns>
+        /// 
+
+
         public IActionResult Index()
         {
             var list = _productsService.GetProducts();
@@ -43,6 +47,7 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public IActionResult Create()
         {
 
@@ -57,6 +62,7 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(ProductViewModel data, IFormFile file)
         {
             //this method is after the user clicks add or submit
