@@ -10,8 +10,8 @@ using ShoppingCart.Data.Context;
 namespace ShoppingCart.Data.Migrations
 {
     [DbContext(typeof(ShoppingCartDbContext))]
-    [Migration("20201214094414_ChangingMembersKey")]
-    partial class ChangingMembersKey
+    [Migration("20201214215127_CreatingMembersTable")]
+    partial class CreatingMembersTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
