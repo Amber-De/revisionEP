@@ -11,7 +11,7 @@ namespace ShoppingCart.Domain.Models
         //start defining what a product is
         [Key]
         public Guid Id { get; set; }
-        [Required]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the name of the product")]
         public string Name { get; set; }
         [Required]
         public double Price { get; set; }
@@ -22,5 +22,12 @@ namespace ShoppingCart.Domain.Models
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
+        /*
+        public int Stock { get; set; }
+
+        public double WholeSalePrice { get; set; }
+
+        public string Supplier { get; set; }
+        */
     }
 }

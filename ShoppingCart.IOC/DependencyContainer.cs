@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShoppingCart.Application.AutoMapper;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.Services;
 using ShoppingCart.Data.Context;
@@ -29,6 +32,18 @@ namespace ShoppingCart.IOC
 
             services.AddScoped<IMembersRepository, MembersRepository>();
             services.AddScoped<IMembersService, MembersService>();
+            /*
+            services.AddScoped<IOrdersRepository, OrdersRepository>();
+            services.AddScoped<IOrdersService, OrdersService>();
+
+            services.AddScoped<IOrderDetailsRepository, OrderDetailsRepository>();
+            services.AddScoped<IOrderDetailsService, OrderDetailsService>();
+            */
+
+            //This is the way how we add automapper to the service collection
+            services.AddAutoMapper(typeof(AutoMapperConfig));
+            //Registers the profile with any instances will be initialized
+            AutoMapperConfig.RegisterMappings();
         }
     }
 }

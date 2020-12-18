@@ -1,4 +1,6 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
@@ -12,56 +14,40 @@ namespace ShoppingCart.Application.Services
     public class ProductsService : IProductsService
     {
         private IProductsRepository _productRepo;
-        public ProductsService(IProductsRepository productRepo)
+        private IMapper _mapper;
+
+        public ProductsService(IProductsRepository productRepo, IMapper mapper)
         {
             _productRepo = productRepo;
+            _mapper = mapper;
         }
 
         public IQueryable<ProductViewModel> GetProducts()
         {
-            var list = from p in _productRepo.GetProducts()
-                       select new ProductViewModel()
-                       {
-                           Id = p.Id,
-                           Name = p.Name,
-                           Price = p.Price,
-                           Description = p.Description,
-                           ImageUrl = p.ImageUrl,
-                           Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name}
-                       };
-            return list;
+            //Product  >>>  ProductViewModel
+            //Project to is a way to map from one type to the other however ONLY when you have a queryable datatype
+            return _productRepo.GetProducts().ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
         }
 
         public ProductViewModel GetProduct(Guid id)
         {
+            //ProductViewModel <<<<<< Auto Mapper <<<<< Product
+            //To eleminate all these lines of code we're going to "map" what we have in product to the viewmodel.
+
+            Product product = _productRepo.GetProduct(id);
+            var resultingProductViewModel = _mapper.Map<ProductViewModel>(product);
+
             ProductViewModel myViewModel = new ProductViewModel();
-            var productFromDb = _productRepo.GetProduct(id); //this method is calling product rep
+            var productFromDb = _productRepo.GetProduct(id);
 
-            myViewModel.Description = productFromDb.Description;
-            myViewModel.Id = productFromDb.Id;
-            myViewModel.ImageUrl = productFromDb.ImageUrl;
-            myViewModel.Name = productFromDb.Name;
-            myViewModel.Price = productFromDb.Price;
-            myViewModel.Category = new CategoryViewModel();
-            myViewModel.Category.Id = productFromDb.Category.Id;
-            myViewModel.Category.Name = productFromDb.Category.Name;
-
-            return myViewModel;
+            return resultingProductViewModel;
         }
 
         public void AddProduct(ProductViewModel data)
         {
-            Product p = new Product();
-            //since the id is being generated automatically we can leave it out.
-
-            //storing the data from data to p.
-            p.Description = data.Description;
-            p.ImageUrl = data.ImageUrl;
-            p.Name = data.Name;
-            p.Price = data.Price;
-            p.CategoryId = data.Category.Id;
-
-            _productRepo.AddProduct(p);
+            //Product  >>>  ProductViewModel
+            var prod = _mapper.Map<Product>(data);
+            _productRepo.AddProduct(prod);
         }
 
         public void DeleteProduct(Guid id)
