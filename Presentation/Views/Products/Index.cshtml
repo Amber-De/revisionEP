@@ -27,7 +27,7 @@
                             @if (User.Identity.IsAuthenticated) {
 
                                 if (User.IsInRole("Admin")) { 
-                                    <a href="Products\Delete?id=@product.Id" onclick="return window.confirm('Are you sure you want to delete this product?')" class="btn btn-danger">Delete</a>
+                                    <a href="Products\Delete?id=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Delete</a>
                                 }
                              }
                         </div>

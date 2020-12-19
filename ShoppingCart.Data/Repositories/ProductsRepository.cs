@@ -28,7 +28,7 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteProduct(Guid id)
+        public void HideProduct(Guid id)
         {
             var myProduct = GetProduct(id);
             
