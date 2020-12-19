@@ -31,11 +31,11 @@ namespace ShoppingCart.Data.Repositories
         public void DeleteProduct(Guid id)
         {
             var myProduct = GetProduct(id);
-            _context.Products.Remove(myProduct);
-            _context.SaveChanges();
+            
+           // _context.Products.Remove(myProduct);
+           // _context.SaveChanges();
 
         }
-
         public IQueryable<Product> GetProducts()
         {
             return _context.Products;
