@@ -1,4 +1,5 @@
 ﻿using ShoppingCart.Data.Context;
+using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace ShoppingCart.Data.Repositories
 {
-    public class OrdersRepository
+    public class OrdersRepository: IOrdersRepository
     {
         private ShoppingCartDbContext _context;
         public OrdersRepository(ShoppingCartDbContext context)
@@ -15,9 +16,9 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<Order> GetOrders()
+        public void CreateOrder(Guid id)
         {
-            return _context.Orders;
+
         }
     }
 }

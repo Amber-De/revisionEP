@@ -8,7 +8,7 @@ namespace ShoppingCart.Domain.Models
 {
     public class OrderDetails
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [ForeignKey("Product")]
         public Guid ProductFk { get; set; }
@@ -18,6 +18,6 @@ namespace ShoppingCart.Domain.Models
         public Guid OrderFk { get; set; }
         public virtual Order Order { get; set; }
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        public double SellingPrice { get; set; }
     }
 }

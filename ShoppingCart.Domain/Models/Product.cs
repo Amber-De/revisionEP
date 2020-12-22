@@ -22,12 +22,6 @@ namespace ShoppingCart.Domain.Models
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        /*
-        public int Stock { get; set; }
 
-        public double WholeSalePrice { get; set; }
-
-        public string Supplier { get; set; }
-        */
     }
 }

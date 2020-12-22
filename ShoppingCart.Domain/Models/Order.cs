@@ -13,5 +13,7 @@ namespace ShoppingCart.Domain.Models
         public string Email { get; set; }
         public DateTime DatePlace { get; set; }
 
+        public double TotalPrice { get; set; }
+
     }
 }

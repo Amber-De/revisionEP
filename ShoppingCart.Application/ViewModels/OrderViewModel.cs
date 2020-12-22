@@ -9,5 +9,7 @@ namespace ShoppingCart.Application.ViewModels
         public Guid Id { get; set; }
         public string Email { get; set; }
         public DateTime DatePlace { get; set; }
+
+        public double TotalPrice { get; set; }
     }
 }

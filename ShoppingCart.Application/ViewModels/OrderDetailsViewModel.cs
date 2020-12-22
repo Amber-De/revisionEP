@@ -7,13 +7,13 @@ namespace ShoppingCart.Application.ViewModels
 {
     public class OrderDetailsViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid ProductFk { get; set; }
-        public  Product Product { get; set; }
+        public  ProductViewModel Product { get; set; }
 
         public Guid OrderFk { get; set; }
-        public Order Order { get; set; }
+        public OrderViewModel Order { get; set; }
         public int Quantity { get; set; }
-        public double Price { get; set; }
+        public double SellingPrice { get; set; }
     }
 }
