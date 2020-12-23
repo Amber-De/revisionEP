@@ -30,10 +30,11 @@ namespace ShoppingCart.Data.Repositories
 
         public void HideProduct(Guid id)
         {
-            var myProduct = GetProduct(id);
             
-           // _context.Products.Remove(myProduct);
-           // _context.SaveChanges();
+            var myProduct = GetProduct(id);
+            myProduct.isVisible = false;
+            _context.Products.Update(myProduct);
+            _context.SaveChanges();
 
         }
         public IQueryable<Product> GetProducts()

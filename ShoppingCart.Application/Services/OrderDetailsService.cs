@@ -26,31 +26,18 @@ namespace ShoppingCart.Application.Services
                            Id = o.Id,
                            Quantity = o.Quantity,
                            SellingPrice = o.SellingPrice,
-                           Product = new ProductViewModel() { Name = o.Product.Name, ImageUrl = o.Product.ImageUrl },
+                           Product = new ProductViewModel() { Name = o.Product.Name, ImageUrl = o.Product.ImageUrl, Price = o.Product.Price },
                            Order = new OrderViewModel () { TotalPrice = o.Order.TotalPrice}
 
                        };
+
+
             return list;
         }
 
-        public OrderDetailsViewModel GetOrderDetails(Guid id)
+        public double Subtotal(Guid orderId)
         {
-            OrderDetailsViewModel myModel = new OrderDetailsViewModel();
-            var orderDb = _orderDetailsRepo.GetOrderDetails(id);
-
-            myModel.Id = orderDb.Id;
-            myModel.Quantity = orderDb.Quantity;
-            myModel.SellingPrice = orderDb.SellingPrice;
-
-            myModel.Product = new ProductViewModel();
-            myModel.Product.Name = orderDb.Product.Name;
-            myModel.Product.ImageUrl = orderDb.Product.ImageUrl;
-
-            myModel.Order = new OrderViewModel();
-            myModel.Order.TotalPrice = orderDb.Order.TotalPrice;
-
-            return myModel;
+            return   _orderDetailsRepo.Subtotal(orderId);
         }
-
     }
 }

@@ -22,6 +22,6 @@ namespace ShoppingCart.Domain.Models
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
-
+        public Boolean isVisible { get; set; }
     }
 }

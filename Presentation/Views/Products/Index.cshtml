@@ -12,6 +12,8 @@
     <div class="row">
         @foreach (var product in Model)
         {
+            if (product.isVisible == true)
+            {
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
@@ -24,16 +26,19 @@
                             <a href="D:\amber\vs_revision\revisionEP\Presentation\Views\Products\Index.cshtml"></a>
                             <!--The link that will connect us to details.html -->
                             <a href="Products\Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
-                            @if (User.Identity.IsAuthenticated) {
+                            @if (User.Identity.IsAuthenticated)
+                            {
 
-                                if (User.IsInRole("Admin")) { 
-                                    <a href="Products\Delete?id=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Delete</a>
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <a href="Products\Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
                                 }
-                             }
+                            }
                         </div>
                     </div>
                 </div>
             </div>
+            }
         }
     </div>
 </div>

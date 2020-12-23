@@ -103,11 +103,11 @@ namespace Presentation.Controllers
             return View();
         }
 
-        public IActionResult Hide(Guid id)
+        public IActionResult Hide(Guid productId)
         {
             //try catch for assignment
-            _productsService.HideProduct(id);
-            TempData["feedback"] = "Product was deleted successfully";
+            _productsService.HideProduct(productId);
+            TempData["feedback"] = "Product was Hidden successfully";
             return RedirectToAction("Index");
             
         }

@@ -2,6 +2,42 @@
 @{
     TempData["Title"] = "OrderDetails";
 }
-<h1 style="text-align: center">Shopping Cart</h1>
-<br />
-<br />
+
+
+<div class="container">
+    <h1 style="text-align: center">Shopping Cart</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var OrderDetail in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@OrderDetail.Product.ImageUrl" style="max-height:250px" />
+                        <br />
+                        @OrderDetail.Product.Name
+                    </td>
+                    <td>@OrderDetail.Product.Price</td>
+                    <td>
+                        <input class="form-control" type="number" name="quantity" value=@OrderDetail.Quantity style="width: 50px ">
+                    </td>
+                    @{
+                        double sellingPrice = OrderDetail.Product.Price * OrderDetail.Quantity;
+                    }
+                    <td>@sellingPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        Subtotal: @ViewBag.total;
+    </div>
+
+</div>

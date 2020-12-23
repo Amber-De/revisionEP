@@ -13,5 +13,6 @@ namespace ShoppingCart.Domain.Interfaces
 
         void DeleteOrderDetail(Guid id);
         void AddOrderDetails(OrderDetails od); //Add an item->that item is orderDetails
+        double Subtotal(Guid orderId);
     }
 }

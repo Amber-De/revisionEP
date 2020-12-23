@@ -18,6 +18,8 @@ namespace ShoppingCart.Application.ViewModels
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public CategoryViewModel Category { get; set; }
+
+        public Boolean isVisible { get; set; }
         /*
         public int Stock { get; set; }
 
