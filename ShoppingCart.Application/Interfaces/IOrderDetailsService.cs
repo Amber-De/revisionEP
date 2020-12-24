@@ -8,8 +8,10 @@ namespace ShoppingCart.Application.Interfaces
 {
     public interface IOrderDetailsService
     {
-        IQueryable<OrderDetailsViewModel> GetOrderDetails();
+        IQueryable<OrderDetailsViewModel> GetOrderDetails(Guid orderId);
 
-        double Subtotal(Guid orderId);
+        Guid GetOrderId(string userName);
+        double Subtotal(Guid orderId, string userName);
+        
     }
 }

@@ -9,7 +9,7 @@ namespace ShoppingCart.Data.Context
     //the class which will first use the connection string to db which inherits from DbContext
     public class ShoppingCartDbContext : DbContext
     {
-         public ShoppingCartDbContext(DbContextOptions options) : base(options) { }
+         public ShoppingCartDbContext(DbContextOptions<ShoppingCartDbContext> options) : base(options) { }
 
         //declaring what other classes need to be in the database so..
 

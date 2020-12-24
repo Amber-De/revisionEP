@@ -52,6 +52,7 @@ namespace Presentation
                 options.Password.RequiredLength = 4;
             });
 
+
             DependencyContainer.RegisterServices(services, Configuration.GetConnectionString("DefaultConnection"));
         }
 

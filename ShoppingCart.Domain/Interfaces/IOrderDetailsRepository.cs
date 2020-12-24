@@ -8,11 +8,12 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface IOrderDetailsRepository
     {
-        IQueryable<OrderDetails> GetOrderDetails();
-        OrderDetails GetOrderDetails(Guid id);
+        IQueryable<OrderDetails> GetOrderDetails(Guid orderId);
 
         void DeleteOrderDetail(Guid id);
         void AddOrderDetails(OrderDetails od); //Add an item->that item is orderDetails
-        double Subtotal(Guid orderId);
+
+        Guid GetOrderId(string userName);
+        double Subtotal(Guid orderId, string userName);
     }
 }

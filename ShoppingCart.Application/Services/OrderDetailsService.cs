@@ -18,26 +18,36 @@ namespace ShoppingCart.Application.Services
             _orderDetailsRepo = orderDetailsRepo;
         }
 
-        public IQueryable<OrderDetailsViewModel> GetOrderDetails()
+        public IQueryable<OrderDetailsViewModel> GetOrderDetails(Guid orderId)
         {
-            var list = from o in _orderDetailsRepo.GetOrderDetails()
+            var list = from o in _orderDetailsRepo.GetOrderDetails(orderId)
                        select new OrderDetailsViewModel()
                        {
                            Id = o.Id,
                            Quantity = o.Quantity,
                            SellingPrice = o.SellingPrice,
                            Product = new ProductViewModel() { Name = o.Product.Name, ImageUrl = o.Product.ImageUrl, Price = o.Product.Price },
-                           Order = new OrderViewModel () { TotalPrice = o.Order.TotalPrice}
+                           Order = new OrderViewModel() { TotalPrice = o.Order.TotalPrice }
 
                        };
 
 
             return list;
+
         }
 
-        public double Subtotal(Guid orderId)
+        public Guid GetOrderId(string userName)
         {
-            return   _orderDetailsRepo.Subtotal(orderId);
+            Guid id = _orderDetailsRepo.GetOrderId(userName);
+
+            return id;
+        }
+
+        public double Subtotal(Guid orderId, string userName)
+        {
+            double total = _orderDetailsRepo.Subtotal(orderId, userName);
+            
+            return total;
         }
     }
 }

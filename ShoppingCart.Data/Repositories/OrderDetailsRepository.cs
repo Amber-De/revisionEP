@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Data.Context;
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace ShoppingCart.Data.Repositories
@@ -29,18 +31,12 @@ namespace ShoppingCart.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public IQueryable<OrderDetails> GetOrderDetails()
+        public IQueryable<OrderDetails> GetOrderDetails(Guid orderid)
         {
-            return _context.OrderDetails;
+            var testing = _context.OrderDetails.Where(x => x.OrderFk == orderid);
+            return testing;
         }
 
-        public OrderDetails GetOrderDetails(Guid id)
-        {
-            //returning a single item..If the id matches with the id that I am passing return it 
-            //otherwise just return null.
-
-            return _context.OrderDetails.Include(x => x.Order).SingleOrDefault(x => x.Id == id);
-        }
 
         //pass an orderid,
         // With orderId get the total for all the products found inside one order
@@ -51,23 +47,24 @@ namespace ShoppingCart.Data.Repositories
         // HINT: A row has to be added in orderDetails (Which represents the added product to your cart)
         //     : You can do this using only 1 parameter which is found inside the product/details view
 
-
-        // STEPS TO GET SUBTOTAL OF EACH ITEM IN A LIST 
-
-        // 1.) OrderId Guid DONE
-        // 2.)Pass to Repo
-        // 3.) Foreach ( var i in _context.OrderDetails)
-
-        public double Subtotal(Guid orderId)
+        public double Subtotal(Guid orderId, string userName)
         {
             double total = 0;
             //with x from OrderDetails match orderFK with the id being passed on.
-            foreach(var i in _context.OrderDetails.Where(x => x.OrderFk == orderId))
+            foreach(var i in _context.OrderDetails.Where(x => x.OrderFk == orderId).ToList())
             {
                 total += (i.Quantity * i.Product.Price);
             }
 
             return total;
+        }
+
+        public Guid GetOrderId(string userName)
+        {
+            DateTime dt1 = new DateTime(1900, 01, 01, 0, 0, 0);
+            var order = _context.Orders.Where(x => x.Email == userName).SingleOrDefault(x => x.DatePlace == dt1);
+
+            return order.Id;
         }
     }
 }
