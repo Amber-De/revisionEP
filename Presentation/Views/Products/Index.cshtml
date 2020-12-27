@@ -1,7 +1,6 @@
-﻿<!-- model PagedList.IPagedList<ShoppingCart.Application.ViewModels.ProductViewModel>
-using PagedList.Mvc; -->
+﻿
+@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel> 
 
-@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
 @{
     TempData["Title"] = "Index";
 }
@@ -45,7 +44,4 @@ using PagedList.Mvc; -->
         }
     </div>
 </div>
-<!--
-    <br />
-Page (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of Model.PageCount
-Html.PagedListPager( Model, page => Url.Action("Index", new { page }) )-->
+<br />

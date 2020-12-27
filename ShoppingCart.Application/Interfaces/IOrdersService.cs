@@ -9,7 +9,7 @@ namespace ShoppingCart.Application.Interfaces
 {
     public interface IOrdersService
     {
-        void CheckOut(List<Product> productsInCart);
+        void CheckOut(Guid orderId);
 
     }
 }

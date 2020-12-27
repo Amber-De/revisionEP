@@ -8,7 +8,6 @@ namespace ShoppingCart.Domain.Interfaces
 {
     public interface IOrdersRepository
     { 
-        //Creating a new order everytime a user checks out.
-        void CreateOrder(Guid id);
+        void FinalizeOrder(Guid orderId);
     }
 }

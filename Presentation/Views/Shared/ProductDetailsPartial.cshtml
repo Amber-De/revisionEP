@@ -12,7 +12,7 @@
         @Html.DisplayNameFor(model => model.Price)
     </dt>
     <dd class="col-sm-10">
-        @Html.DisplayFor(model => model.Price)
+        €@Html.DisplayFor(model => model.Price)
     </dd>
     <dt class="col-sm-2">
         @Html.DisplayNameFor(model => model.Description)
@@ -34,4 +34,14 @@
     </dd>
 
 </dl>
-<a href="/Orders/AddingToCart?productId=@Model.Id" class="btn btn-outline-dark " />Add to cart
+@if (User.Identity.IsAuthenticated)
+{
+    <a href="/Orders/AddingToCart?productId=@Model.Id" class="btn btn-outline-dark ">Add to cart</a>
+}
+else
+{
+    <br />
+    <hr />
+    <p style="text-align:center; font-size: 150%;"><b><i>Please Register with our website in order to Shop. Thankyou & Enjoy!</i></b> </p>
+}
+    

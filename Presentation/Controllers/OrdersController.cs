@@ -25,9 +25,11 @@ namespace Presentation.Controllers
 
         public IActionResult OrderDetails(Guid orderId, Guid productId)
         {
+            //Getting product Id & Order Id & Email
             var prodId = _productsService.GetProduct(productId);
             var username =  User.Identity.Name;
             orderId = _orderDetailsService.GetOrderId(username);
+
             var list = _orderDetailsService.GetOrderDetails(orderId);
             //viewbag = to pass the total in the html.
             ViewBag.total = _orderDetailsService.Subtotal(orderId, username);
@@ -42,6 +44,18 @@ namespace Presentation.Controllers
             _orderDetailsService.AddOrderDetails(orderId, productId);
 
             TempData["feedback"] = "Product was added successfully !";
+            return RedirectToAction("OrderDetails");
+        }
+
+        public IActionResult Checkout(Guid orderId)
+        {
+
+            var username = User.Identity.Name;
+            orderId = _orderDetailsService.GetOrderId(username);
+             _ordersService.CheckOut(orderId);
+            ViewBag.Id = orderId;
+
+            TempData["feedback"] = "Order was completed successfully !";
             return RedirectToAction("OrderDetails");
         }
     }

@@ -17,9 +17,9 @@ namespace ShoppingCart.Application.Services
             _orderRepo = orderRepo;
         }
 
-        public void CheckOut(List<Product> productsInCart)
+        public void CheckOut(Guid orderId)
         {
-            throw new NotImplementedException();
+            _orderRepo.FinalizeOrder(orderId);
         }
     }
 }
