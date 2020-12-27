@@ -12,8 +12,7 @@ namespace ShoppingCart.Application.Interfaces
         //we are going to return a product view model so we won't expose our original class.
         IQueryable<ProductViewModel> GetProducts();
 
-        ProductViewModel GetProduct(Guid id);
-
+        ProductViewModel GetProduct(Guid productId);
         void AddProduct(ProductViewModel data);
 
         void HideProduct(Guid id);

@@ -1,12 +1,13 @@
 ﻿@model ShoppingCart.Application.ViewModels.ProductViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    TempData["Title"] = "Details";
 }
 
 <h1>Details</h1>
 
 <div>
     <hr />
-    @Html.Partial("ProductDetailsPartial", Model)
+    <partial name="ProductDetailsPartial",Model />
 </div>
+

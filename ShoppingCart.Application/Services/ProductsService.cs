@@ -29,16 +29,16 @@ namespace ShoppingCart.Application.Services
             return _productRepo.GetProducts().ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
         }
 
-        public ProductViewModel GetProduct(Guid id)
+        public ProductViewModel GetProduct(Guid productId)
         {
             //ProductViewModel <<<<<< Auto Mapper <<<<< Product
             //To eleminate all these lines of code we're going to "map" what we have in product to the viewmodel.
 
-            Product product = _productRepo.GetProduct(id);
+            Product product = _productRepo.GetProduct(productId);
             var resultingProductViewModel = _mapper.Map<ProductViewModel>(product);
 
             ProductViewModel myViewModel = new ProductViewModel();
-            var productFromDb = _productRepo.GetProduct(id);
+            var productFromDb = _productRepo.GetProduct(productId);
 
             return resultingProductViewModel;
         }

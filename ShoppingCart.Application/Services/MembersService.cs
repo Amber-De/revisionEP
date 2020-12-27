@@ -12,17 +12,14 @@ namespace ShoppingCart.Application.Services
     public class MembersService : IMembersService
     {
         public IMembersRepository _membersRepo;
-        private IMapper _mapper;
 
-        public MembersService(IMembersRepository membersRepo, IMapper mapper)
+        public MembersService(IMembersRepository membersRepo)
         {
             _membersRepo = membersRepo;
-            _mapper = mapper;
-
         }
 
         public void AddMember(MemberViewModel m)
-        { /*
+        { 
             Member newMember = new Member()
             {
                 Email = m.Email,
@@ -36,11 +33,6 @@ namespace ShoppingCart.Application.Services
 
             _membersRepo.AddMembers(newMember);
 
-            */
-
-            //Member >>> MemberViewMdodel
-            var mem = _mapper.Map<Member>(m);
-            _membersRepo.AddMembers(mem);
         }
     }
 }

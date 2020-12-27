@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
+﻿<!-- model PagedList.IPagedList<ShoppingCart.Application.ViewModels.ProductViewModel>
+using PagedList.Mvc; -->
+
+@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
 @{
     TempData["Title"] = "Index";
 }
@@ -14,31 +17,35 @@
         {
             if (product.isVisible == true)
             {
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="@product.ImageUrl" class="card-img" alt="@product.Name" style="width: 180px; height: 180px;">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">@product.Name</h5>
-                            <p class="card-text">€@product.Price</p>
-                            <a href="D:\amber\vs_revision\revisionEP\Presentation\Views\Products\Index.cshtml"></a>
-                            <!--The link that will connect us to details.html -->
-                            <a href="Products\Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-
-                                if (User.IsInRole("Admin"))
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="@product.ImageUrl" class="card-img" alt="@product.Name" style="width: 180px; height: 180px;">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">€@product.Price</p>
+                                <a href="D:\amber\vs_revision\revisionEP\Presentation\Views\Products\Index.cshtml"></a>
+                                <!--The link that will connect us to details.html -->
+                                <a href="Products\Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
+                                @if (User.Identity.IsAuthenticated)
                                 {
-                                    <a href="Products\Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
+
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <a href="Products\Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
+                                    }
                                 }
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
         }
     </div>
 </div>
+<!--
+    <br />
+Page (Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of Model.PageCount
+Html.PagedListPager( Model, page => Url.Action("Index", new { page }) )-->

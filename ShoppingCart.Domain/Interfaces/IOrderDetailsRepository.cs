@@ -11,7 +11,7 @@ namespace ShoppingCart.Domain.Interfaces
         IQueryable<OrderDetails> GetOrderDetails(Guid orderId);
 
         void DeleteOrderDetail(Guid id);
-        void AddOrderDetails(OrderDetails od); //Add an item->that item is orderDetails
+        void AddOrderDetails(Guid orderId, Guid productId); //Add an item->that item is orderDetails
 
         Guid GetOrderId(string userName);
         double Subtotal(Guid orderId, string userName);

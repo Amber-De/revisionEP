@@ -49,5 +49,10 @@ namespace ShoppingCart.Application.Services
             
             return total;
         }
+
+        public void AddOrderDetails(Guid orderId, Guid productId)
+        {
+            _orderDetailsRepo.AddOrderDetails(orderId, productId);
+        }
     }
 }
