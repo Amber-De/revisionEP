@@ -9,7 +9,7 @@ using ShoppingCart.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
-
+using X.PagedList;
 
 namespace Presentation.Controllers
 {
@@ -34,10 +34,18 @@ namespace Presentation.Controllers
         /// 
 
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
+            var categoryList = _categoriesService.GetCategories();
+            ViewBag.Categories = categoryList;
+
             var list = _productsService.GetProducts();
-            return View(list);
+
+            var pageNumber = page ?? 1;
+            var onePageOfProducts = list.ToPagedList(pageNumber, 10);
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            return View();
            
         }
 
