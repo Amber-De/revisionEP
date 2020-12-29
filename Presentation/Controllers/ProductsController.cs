@@ -36,6 +36,7 @@ namespace Presentation.Controllers
 
         public IActionResult Index(int? page)
         {
+            //We used view bag because we are calling from the product view model and not from the Category view model
             var categoryList = _categoriesService.GetCategories();
             ViewBag.Categories = categoryList;
 
