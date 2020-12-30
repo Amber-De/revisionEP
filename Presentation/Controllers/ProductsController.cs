@@ -33,20 +33,39 @@ namespace Presentation.Controllers
         /// <returns></returns>
         /// 
 
-
+        [HttpGet]
         public IActionResult Index(int? page)
         {
+            //Getting Categories
             var categoryList = _categoriesService.GetCategories();
             ViewBag.Categories = categoryList;
 
+            //Getting products
             var list = _productsService.GetProducts();
-
+            
+            //Paging
             var pageNumber = page ?? 1;
             var onePageOfProducts = list.ToPagedList(pageNumber, 10);
 
             ViewBag.OnePageOfProducts = onePageOfProducts;
             return View();
            
+        }
+
+        [HttpPost]
+        public IActionResult Index(string categoryName, int? page)
+        {
+            var categoryList = _categoriesService.GetCategories();
+            ViewBag.Categories = categoryList;
+
+            //get category id with this name
+            var categoryId = _categoriesService.GetCategoryId(categoryName);
+            var list = _productsService.GetProductsAccording(categoryId);
+            //Paging
+            var pageNumber = page ?? 1;
+            var onePageOfProducts = list.ToPagedList(pageNumber, 10);
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            return View();
         }
 
         public IActionResult Details(Guid id)
@@ -75,7 +94,6 @@ namespace Presentation.Controllers
         public IActionResult Create(ProductViewModel data, IFormFile file)
         {
             //this method is after the user clicks add or submit
-            //Validation such as if the email is good, category wise, price is not below 0 or with (-).
             try
             {
                 if(file != null)

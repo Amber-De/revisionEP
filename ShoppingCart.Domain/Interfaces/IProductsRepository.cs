@@ -12,8 +12,12 @@ namespace ShoppingCart.Domain.Interfaces
 
         IQueryable<Product> GetProducts();
 
+        IQueryable<Product> GetProductsAccording(int categoryId);
+
         Product GetProduct(Guid productId);
         void AddProduct(Product p);
         void HideProduct(Guid id);
+
+        void ReduceStock(IQueryable<Guid>ProductIds,Guid orderId);
     }
 }

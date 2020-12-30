@@ -7,42 +7,50 @@
 <div class="container">
     <h1 style="text-align: center">Shopping Cart</h1>
     <br />
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var OrderDetail in Model)
-            {
+    @if (Model.Count() != 0)
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <img src="@OrderDetail.Product.ImageUrl" style="max-height:250px" />
-                        <br />
-                        @OrderDetail.Product.Name
-                    </td>
-                    <td>€@OrderDetail.Product.Price</td>
-                    <td>
-                        <input class="form-control" type="number" name="quantity" value=@OrderDetail.Quantity style="width: 50px ">
-                    </td>
-                    @{
-                        double sellingPrice = OrderDetail.Product.Price * OrderDetail.Quantity;
-                    }
-                    <td>€@sellingPrice</td>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <div style="text-align: right">
-        <h4>
-            Subtotal: €@ViewBag.total
-        </h4>
-        <a href="/Orders/Checkout?orderId=@ViewBag.Id" class="btn btn-outline-dark ">Checkout</a>
+            </thead>
+            <tbody>
+                @foreach (var OrderDetail in Model)
+                {
+
+                    <tr>
+                        <td>
+                            <img src="@OrderDetail.Product.ImageUrl" style="max-height:250px" />
+                            <br />
+                            @OrderDetail.Product.Name
+                        </td>
+                        <td>€@OrderDetail.Product.Price</td>
+                        <td>
+                            <input class="form-control" type="number" name="quantity" value=@OrderDetail.Quantity style="width: 50px ">
+                        </td>
+                        @{
+                            double sellingPrice = OrderDetail.Product.Price * OrderDetail.Quantity;
+                        }
+                        <td>€@sellingPrice</td>
+                    </tr>
+                            }
+            </tbody>
+        </table>
+        <div style="text-align: right">
+            <h4>
+                Subtotal: €@ViewBag.total
+            </h4>
+            <a href="/Orders/Checkout?orderId=@ViewBag.Id&productId=@ViewBag.prodId" class="btn btn-outline-dark ">Checkout</a>
      
-    </div>
+        </div>
+    }
+    else
+    {
+<p style="text-align:center; font-size: 150%;"><b><i>There are no items in the shopping cart! </i></b> &#128577; </p>
+    }
 
 </div>

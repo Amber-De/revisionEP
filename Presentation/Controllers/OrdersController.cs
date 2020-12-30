@@ -23,12 +23,11 @@ namespace Presentation.Controllers
             _productsService = productsService;
         }
 
-        public IActionResult OrderDetails(Guid orderId, Guid productId)
+        public IActionResult OrderDetails()
         {
-            //Getting product Id & Order Id & Email
-            var prodId = _productsService.GetProduct(productId);
+
             var username =  User.Identity.Name;
-            orderId = _orderDetailsService.GetOrderId(username);
+            var orderId = _orderDetailsService.GetOrderId(username);
 
             var list = _orderDetailsService.GetOrderDetails(orderId);
             //viewbag = to pass the total in the html.
@@ -41,19 +40,29 @@ namespace Presentation.Controllers
         {
             var username = User.Identity.Name;
             Guid orderId = _orderDetailsService.GetOrderId(username);
-            _orderDetailsService.AddOrderDetails(orderId, productId);
+            bool orderDetails =  _orderDetailsService.AddOrderDetails(orderId, productId);
+            if(orderDetails == false)
+            {
+                TempData["warning"] = "Product was Out of stock!";
+                return RedirectToAction("Index","Products");
+            }
 
             TempData["feedback"] = "Product was added successfully !";
             return RedirectToAction("OrderDetails");
         }
 
-        public IActionResult Checkout(Guid orderId)
+        public IActionResult Checkout(Guid orderId, Guid productId)
         {
 
             var username = User.Identity.Name;
             orderId = _orderDetailsService.GetOrderId(username);
              _ordersService.CheckOut(orderId);
             ViewBag.Id = orderId;
+            var prodId = _productsService.GetProduct(productId);
+            ViewBag.prod = prodId;
+
+            var productIds = _orderDetailsService.GetProductIds(orderId);
+            _productsService.ReduceStock(productIds,orderId);
 
             TempData["feedback"] = "Order was completed successfully !";
             return RedirectToAction("OrderDetails");

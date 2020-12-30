@@ -9,24 +9,29 @@
 
 <h1 style="text-align: center">Beauty Store</h1>
 <br />
+
+@{
+    string categoryName = "";
+}
+
+<!--Using this format for every product -->
+<form action="/Products/Index?categoryName=@categoryName" method="post" >
+    <div class="form-group">
+        <label>Select Category</label>
+        <select asp-for=@categoryName class="form-control">
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Name">@category.Name</option>
+            }
+        </select>
+        <br />
+
+        <input type="submit" value="Search" class="btn btn-outline-dark"  />
+    </div>
+</form>
+
 <br />
 
-<!--Using this format for every product
-
-<form asp-controller="Products" asp-action="Index" method="post"></form>
-<div class="form-group">
-    <div class="row">
-          <label asp-for="" class="control-label">
-                <select asp-for="" class="form-control">
-                    foreach (var category in ViewBag.Categories)
-                    {
-                        <option value="category.Id">category.Name</option>
-                    }
-                </select>
-          </label>
-    </div>
-</div>
-    -->
 <div class="container">
     <div class="row">
         @foreach (var product in ViewBag.OnePageOfProducts)
@@ -43,7 +48,7 @@
                                 <h5 class="card-title">@product.Name</h5>
                                 <p class="card-text">€@product.Price</p>
                                 <a href="D:\amber\vs_revision\revisionEP\Presentation\Views\Products\Index.cshtml"></a>
-                                 <!--The link that will connect us to details.html -->
+                                <!--The link that will connect us to details.html -->
                                 <a href="Products\Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
                                 @if (User.Identity.IsAuthenticated)
                                 {
@@ -57,10 +62,10 @@
                         </div>
                     </div>
                 </div>
-}
-}
+            }
+        }
 
     </div>
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page = page }))
+    @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page = page }))
 </div>
 <br />

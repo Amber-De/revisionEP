@@ -20,9 +20,7 @@ namespace ShoppingCart.Application.ViewModels
         public CategoryViewModel Category { get; set; }
 
         public Boolean isVisible { get; set; }
-        /*
+        
         public int Stock { get; set; }
-
-*/
     }
 }

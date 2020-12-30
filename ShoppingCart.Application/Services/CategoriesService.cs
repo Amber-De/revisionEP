@@ -24,5 +24,10 @@ namespace ShoppingCart.Application.Services
         {
             return _categoryRepo.GetCategories().ProjectTo<CategoryViewModel>(_mapper.ConfigurationProvider);
         }
+
+        public int GetCategoryId(string categoryName)
+        {
+            return _categoryRepo.GetCategoryId(categoryName);
+        }
     }
 }

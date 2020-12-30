@@ -1,4 +1,6 @@
-﻿using ShoppingCart.Application.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Domain.Interfaces;
 using ShoppingCart.Domain.Models;
@@ -12,14 +14,17 @@ namespace ShoppingCart.Application.Services
     public class OrderDetailsService: IOrderDetailsService
     {
         private IOrderDetailsRepository _orderDetailsRepo;
+        private IMapper _mapper;
 
-        public OrderDetailsService(IOrderDetailsRepository orderDetailsRepo)
+        public OrderDetailsService(IOrderDetailsRepository orderDetailsRepo, IMapper mapper)
         {
             _orderDetailsRepo = orderDetailsRepo;
+            _mapper = mapper;
         }
 
         public IQueryable<OrderDetailsViewModel> GetOrderDetails(Guid orderId)
         {
+            /*
             var list = from o in _orderDetailsRepo.GetOrderDetails(orderId)
                        select new OrderDetailsViewModel()
                        {
@@ -33,7 +38,9 @@ namespace ShoppingCart.Application.Services
 
 
             return list;
+            */
 
+            return _orderDetailsRepo.GetOrderDetails(orderId).ProjectTo<OrderDetailsViewModel>(_mapper.ConfigurationProvider);
         }
 
         public Guid GetOrderId(string userName)
@@ -50,9 +57,14 @@ namespace ShoppingCart.Application.Services
             return total;
         }
 
-        public void AddOrderDetails(Guid orderId, Guid productId)
+        public Boolean AddOrderDetails(Guid orderId, Guid productId)
         {
-            _orderDetailsRepo.AddOrderDetails(orderId, productId);
+            return _orderDetailsRepo.AddOrderDetails(orderId, productId);
+        }
+
+        public IQueryable<Guid> GetProductIds(Guid orderId)
+        {
+            return _orderDetailsRepo.GetProductIds(orderId);
         }
     }
 }

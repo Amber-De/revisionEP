@@ -20,5 +20,12 @@ namespace ShoppingCart.Data.Repositories
         {
             return _context.Categories;
         }
+
+        public int GetCategoryId(string categoryName)
+        {
+            var categoryId = _context.Categories.SingleOrDefault(x => x.Name == categoryName).Id;
+
+            return categoryId;
+        }
     }
 }

@@ -24,6 +24,7 @@ namespace ShoppingCart.Data.Repositories
         public void AddProduct(Product p)
         {
             //context has a list of products and I need to add p..adding to the local list of products my new product
+
             _context.Products.Add(p);
             _context.SaveChanges();
         }
@@ -50,6 +51,36 @@ namespace ShoppingCart.Data.Repositories
             
             //lazyloading - it is only loaded if it is asked to.
             return _context.Products.Include(x => x.Category).SingleOrDefault(x => x.Id == productId);
+        }
+
+        public IQueryable<Product> GetProductsAccording(int categoryId)
+        {
+            var products = _context.Products.Where(x => x.CategoryId == categoryId);
+            return products;
+        }
+
+        public void ReduceStock(IQueryable<Guid>ProductIds, Guid orderId)
+        {
+            //Calculating every order detail in the Cart once checkout is completed.
+
+            //If we want to get the quantity... we also need the orderId. erm why..quantity f order details qieghed. But In orderDetails jista jkun li il productId jider izjed min darba for different orders
+            foreach(var productIdAtLocation in ProductIds)
+            {
+                var product = _context.Products.SingleOrDefault(x => x.Id == productIdAtLocation);
+                var quantity = _context.OrderDetails.SingleOrDefault(x => x.ProductFk == productIdAtLocation && x.OrderFk == orderId).Quantity;
+
+                if (product.Stock != 0)
+                {
+                    product.Stock -= quantity;
+                    _context.Update(product);
+                   
+                    
+                }
+
+            
+            }
+
+            _context.SaveChanges();
         }
     }
 }

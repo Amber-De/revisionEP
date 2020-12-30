@@ -37,9 +37,6 @@ namespace ShoppingCart.Application.Services
             Product product = _productRepo.GetProduct(productId);
             var resultingProductViewModel = _mapper.Map<ProductViewModel>(product);
 
-            ProductViewModel myViewModel = new ProductViewModel();
-            var productFromDb = _productRepo.GetProduct(productId);
-
             return resultingProductViewModel;
         }
 
@@ -57,6 +54,17 @@ namespace ShoppingCart.Application.Services
                 _productRepo.HideProduct(id);
             }
 
+        }
+
+        public IQueryable<ProductViewModel> GetProductsAccording(int categoryId)
+        {
+           return _productRepo.GetProductsAccording(categoryId).ProjectTo<ProductViewModel>(_mapper.ConfigurationProvider);
+
+        }
+
+        public void ReduceStock(IQueryable<Guid> ProductIds,Guid orderId)
+        {
+             _productRepo.ReduceStock(ProductIds,orderId);
         }
     }
 }

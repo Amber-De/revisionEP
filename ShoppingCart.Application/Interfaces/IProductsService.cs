@@ -11,10 +11,11 @@ namespace ShoppingCart.Application.Interfaces
     {
         //we are going to return a product view model so we won't expose our original class.
         IQueryable<ProductViewModel> GetProducts();
-
+        IQueryable<ProductViewModel> GetProductsAccording(int categoryId);
         ProductViewModel GetProduct(Guid productId);
         void AddProduct(ProductViewModel data);
-
         void HideProduct(Guid id);
+
+        void ReduceStock(IQueryable<Guid> ProductIds,Guid orderId);
     }
 }

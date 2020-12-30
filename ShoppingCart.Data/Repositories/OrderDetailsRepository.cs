@@ -20,7 +20,7 @@ namespace ShoppingCart.Data.Repositories
             _context = context;
         }
 
-        public void AddOrderDetails(Guid orderId, Guid productId)
+        public Boolean AddOrderDetails(Guid orderId, Guid productId)
         {
             //Creating a new order detail
             OrderDetails o = new OrderDetails();
@@ -28,23 +28,32 @@ namespace ShoppingCart.Data.Repositories
             o.ProductFk = productId;
             o.SellingPrice = _context.Products.SingleOrDefault(x => x.Id == productId).Price;
 
+            var stockForProduct = _context.Products.SingleOrDefault(x => x.Id == productId).Stock;
+
             var orderDetail = _context.OrderDetails.FirstOrDefault(x => x.ProductFk == productId && x.OrderFk == orderId);
 
             //If there is this product already in the list and the user clicks on add to cart again -> increase the quantity.
-            if (orderDetail == null)
+            if (stockForProduct > 0)
             {
-                o.Quantity = 1;
-                _context.Add(o);
-                _context.SaveChanges();
+                if (orderDetail == null)
+                {
+                    o.Quantity = 1;
+                    _context.Add(o);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    orderDetail.Quantity++;
+                    _context.Update(orderDetail);
+                    _context.SaveChanges();
+                }
             }
             else
             {
-                orderDetail.Quantity++;
-                _context.Update(orderDetail);
-                _context.SaveChanges();
+                return false;
             }
 
-
+            return true;
         }
         
         public void DeleteOrderDetail(Guid id)
@@ -55,8 +64,8 @@ namespace ShoppingCart.Data.Repositories
 
         public IQueryable<OrderDetails> GetOrderDetails(Guid orderid)
         {
-            var testing = _context.OrderDetails.Where(x => x.OrderFk == orderid);
-            return testing;
+            var order = _context.OrderDetails.Where(x => x.OrderFk == orderid);
+            return order;
         }
 
         public double Subtotal(Guid orderId, string userName)
@@ -90,6 +99,15 @@ namespace ShoppingCart.Data.Repositories
             }
 
             return order.Id;
+        }
+
+        public IQueryable<Guid> GetProductIds(Guid orderId)
+        {
+            //Matching orderFk in Order details with the id being passed and selecting the productid from that specific order detail.
+            //Then returning a list of ids which will later on be used to deduct stock.
+
+            var ListOfIds = _context.OrderDetails.Where(x => x.OrderFk == orderId).Select(x => x.ProductFk);
+            return ListOfIds;
         }
     }
 }

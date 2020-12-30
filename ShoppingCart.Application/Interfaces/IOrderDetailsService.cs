@@ -10,11 +10,11 @@ namespace ShoppingCart.Application.Interfaces
     {
         IQueryable<OrderDetailsViewModel> GetOrderDetails(Guid orderId);
 
-        void AddOrderDetails(Guid orderId, Guid productId);
+        Boolean AddOrderDetails(Guid orderId, Guid productId);
         Guid GetOrderId(string userName);
         double Subtotal(Guid orderId, string userName);
 
-        
-        
+        IQueryable<Guid> GetProductIds(Guid orderId);
+
     }
 }
