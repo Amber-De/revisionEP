@@ -1,34 +1,22 @@
-﻿<!--
-@model ShoppingCart.Application.ViewModels.OrderDetailsViewModel
+﻿
+@foreach (var OrderDetail in Model)
+{
 
-<div>
-    <h4>OrderDetailsViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderFk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderFk)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SellingPrice)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SellingPrice)
-        </dd>
-    </dl>
-</div>
--->
+    <tr>
+        <td>
+            <img src="@OrderDetail.Product.ImageUrl" style="max-height:250px" />
+            <br />
+            @OrderDetail.Product.Name
+        </td>
+        <td>€@OrderDetail.Product.Price</td>
+        <td>
+            <input class="form-control" type="number" name="quantity" value=@OrderDetail.Quantity style="width: 50px " disabled>
+        </td>
+        @{
+            double sellingPrice = OrderDetail.Product.Price * OrderDetail.Quantity;
+
+        }
+        <td>€@sellingPrice</td>
+    </tr>
+}
+       

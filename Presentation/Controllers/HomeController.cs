@@ -7,8 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Presentation.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,7 +22,6 @@ namespace Presentation.Controllers
 
         public IActionResult Index()
         {
-            
             return View();
         }
 

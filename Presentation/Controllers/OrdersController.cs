@@ -27,13 +27,21 @@ namespace Presentation.Controllers
         {
 
             var username =  User.Identity.Name;
-            var orderId = _orderDetailsService.GetOrderId(username);
+            if(username != null)
+            {
+                var orderId = _orderDetailsService.GetOrderId(username);
 
-            var list = _orderDetailsService.GetOrderDetails(orderId);
-            //viewbag = to pass the total in the html.
-            ViewBag.total = _orderDetailsService.Subtotal(orderId, username);
+                var list = _orderDetailsService.GetOrderDetails(orderId);
+                //viewbag = to pass the total in the html.
+                ViewBag.total = _orderDetailsService.Subtotal(orderId, username);
 
-            return View(list);
+                return View(list);
+            }
+            else
+            {
+                return View();
+            }
+           
         }
 
         public IActionResult AddingToCart(Guid productId)

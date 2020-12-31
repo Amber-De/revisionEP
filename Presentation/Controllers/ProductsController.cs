@@ -118,7 +118,6 @@ namespace Presentation.Controllers
 
             }catch(Exception e)
             {
-                //log errors
 
                 TempData["warning"] = "Product was not added. Please check your details";  
 
@@ -132,7 +131,7 @@ namespace Presentation.Controllers
 
         public IActionResult Hide(Guid productId)
         {
-            //try catch for assignment
+            
             _productsService.HideProduct(productId);
             TempData["feedback"] = "Product was Hidden successfully";
             return RedirectToAction("Index");

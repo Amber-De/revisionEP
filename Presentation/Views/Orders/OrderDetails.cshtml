@@ -3,54 +3,49 @@
     TempData["Title"] = "OrderDetails";
 }
 
+<h1 style="text-align: center">Shopping Cart</h1>
 
-<div class="container">
-    <h1 style="text-align: center">Shopping Cart</h1>
-    <br />
-    @if (Model.Count() != 0)
+<div>
+    <hr />
+
+    @if (User.Identity.IsAuthenticated)
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var OrderDetail in Model)
-                {
+        @if (Model.Count() != 0)
+        {
+            <div class="container">
 
-                    <tr>
-                        <td>
-                            <img src="@OrderDetail.Product.ImageUrl" style="max-height:250px" />
-                            <br />
-                            @OrderDetail.Product.Name
-                        </td>
-                        <td>€@OrderDetail.Product.Price</td>
-                        <td>
-                            <input class="form-control" type="number" name="quantity" value=@OrderDetail.Quantity style="width: 50px ">
-                        </td>
-                        @{
-                            double sellingPrice = OrderDetail.Product.Price * OrderDetail.Quantity;
-                        }
-                        <td>€@sellingPrice</td>
-                    </tr>
-                            }
-            </tbody>
-        </table>
-        <div style="text-align: right">
-            <h4>
-                Subtotal: €@ViewBag.total
-            </h4>
-            <a href="/Orders/Checkout?orderId=@ViewBag.Id&productId=@ViewBag.prodId" class="btn btn-outline-dark ">Checkout</a>
-     
-        </div>
+                <br />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <partial name="OrderDetailsPartial" ,Model />
+                    </tbody>
+                </table>
+                <div style="text-align: right">
+                    <h4>
+                        Subtotal: €@ViewBag.total
+                    </h4>
+                    <a href="/Orders/Checkout?orderId=@ViewBag.Id&productId=@ViewBag.prodId" class="btn btn-outline-dark ">Checkout</a>
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <p style="text-align:center; font-size: 150%;"><b><i>There are no items in the shopping cart! </i></b> &#128577; </p>
+        }
     }
     else
     {
-<p style="text-align:center; font-size: 150%;"><b><i>There are no items in the shopping cart! </i></b> &#128577; </p>
+        <br />
+        <hr />
+        <p style="text-align:center; font-size: 150%;"><b><i>Your shopping cart is empty</i> &#128577; <br /> <i>Please Register or Login with our website in order to Shop. Thankyou & Enjoy!</i></b> </p>
     }
-
 </div>

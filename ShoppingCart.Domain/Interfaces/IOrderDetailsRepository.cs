@@ -10,7 +10,6 @@ namespace ShoppingCart.Domain.Interfaces
     {
         IQueryable<OrderDetails> GetOrderDetails(Guid orderId);
 
-        void DeleteOrderDetail(Guid id);
         Boolean AddOrderDetails(Guid orderId, Guid productId); //Add an item->that item is orderDetails
 
         Guid GetOrderId(string userName);

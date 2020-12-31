@@ -55,12 +55,6 @@ namespace ShoppingCart.Data.Repositories
 
             return true;
         }
-        
-        public void DeleteOrderDetail(Guid id)
-        {
-            //removing an item from the list
-            throw new NotImplementedException();
-        }
 
         public IQueryable<OrderDetails> GetOrderDetails(Guid orderid)
         {
@@ -86,6 +80,7 @@ namespace ShoppingCart.Data.Repositories
             var order = _context.Orders.Where(x => x.Email == userName).SingleOrDefault(x => x.DatePlace == dt1);
 
             //If the user has never added to a cart before, they do not have an order id -> so we create one
+
             if (order == null)
             {
                 Order o = new Order();

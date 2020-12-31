@@ -15,19 +15,21 @@
 }
 
 <!--Using this format for every product -->
-<form action="/Products/Index?categoryName=@categoryName" method="post" >
+<form action="Products/Index" method="post">
     <div class="form-group">
         <label>Select Category</label>
         <select asp-for=@categoryName class="form-control">
             @foreach (var category in ViewBag.Categories)
             {
                 <option value="@category.Name">@category.Name</option>
+
             }
         </select>
         <br />
 
-        <input type="submit" value="Search" class="btn btn-outline-dark"  />
+        <input type="submit" value="Search" class="btn btn-outline-dark" />
     </div>
+
 </form>
 
 <br />
@@ -47,15 +49,14 @@
                             <div class="card-body">
                                 <h5 class="card-title">@product.Name</h5>
                                 <p class="card-text">€@product.Price</p>
-                                <a href="D:\amber\vs_revision\revisionEP\Presentation\Views\Products\Index.cshtml"></a>
                                 <!--The link that will connect us to details.html -->
-                                <a href="Products\Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
+                                <a href="Products/Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
                                 @if (User.Identity.IsAuthenticated)
                                 {
 
                                     if (User.IsInRole("Admin"))
                                     {
-                                        <a href="Products\Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
+                                        <a href="Products/Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
                                     }
                                 }
                             </div>
