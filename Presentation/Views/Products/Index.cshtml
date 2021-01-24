@@ -15,7 +15,7 @@
 }
 
 <!--Using this format for every product -->
-<form action="Products/Index" method="post">
+<form action="/Products/Index" method="post">
     <div class="form-group">
         <label>Select Category</label>
         <select asp-for=@categoryName class="form-control">
@@ -50,13 +50,13 @@
                                 <h5 class="card-title">@product.Name</h5>
                                 <p class="card-text">€@product.Price</p>
                                 <!--The link that will connect us to details.html -->
-                                <a href="Products/Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
+                                <a href="/Products/Details?id=@product.Id" class="btn btn-dark">View Specifications</a>
                                 @if (User.Identity.IsAuthenticated)
                                 {
 
                                     if (User.IsInRole("Admin"))
                                     {
-                                        <a href="Products/Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
+                                        <a href="/Products/Hide?productId=@product.Id" onclick="return window.confirm('Are you sure you want to hide this product?')" class="btn btn-danger">Hide</a>
                                     }
                                 }
                             </div>

@@ -13,8 +13,8 @@ namespace ShoppingCart.Application.AutoMapper
         {
             //For the catgeory when getting it from the source just ignore -> leaving the category null
             CreateMap<ProductViewModel, Product>().ForMember(x => x.Category, opt => opt.Ignore());
-            CreateMap<CategoryViewModel, Product>();
-            CreateMap<MemberViewModel, Product>();
+            CreateMap<CategoryViewModel, Category>();
+            CreateMap<MemberViewModel, Member>();
             
             CreateMap<OrderViewModel, Order>();
             CreateMap<OrderDetailsViewModel, OrderDetails>();
